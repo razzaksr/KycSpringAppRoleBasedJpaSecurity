@@ -3,6 +3,7 @@ package com.example.kycspringjpasecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,6 +31,9 @@ public class SecurityConfig {
         httpSecurity.authorizeRequests().antMatchers("/banker/signup").permitAll();
         httpSecurity.authorizeRequests().antMatchers("/accounts/retrieve","/accounts/created","/accounts/aadhaar","/accounts/min/*","/accounts/perfect/*","/accounts/pancard/*","/accounts/account/*").
                 hasAnyAuthority("manager","admin");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST).hasAuthority("admin");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT).hasAuthority("admin");
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE).hasAuthority("admin");
 
         httpSecurity.authorizeRequests().anyRequest().authenticated();
 
