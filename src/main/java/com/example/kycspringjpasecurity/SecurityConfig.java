@@ -28,6 +28,9 @@ public class SecurityConfig {
         //httpSecurity.authorizeRequests().anyRequest().authenticated();
 
         httpSecurity.authorizeRequests().antMatchers("/banker/signup").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/accounts/retrieve","/accounts/created","/accounts/aadhaar","/accounts/min/*","/accounts/perfect/*","/accounts/pancard/*","/accounts/account/*").
+                hasAnyAuthority("manager","admin");
+
         httpSecurity.authorizeRequests().anyRequest().authenticated();
 
         httpSecurity.csrf().disable();
